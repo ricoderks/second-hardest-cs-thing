@@ -7,9 +7,8 @@ format:
     slide-number: true
     preview-links: auto
     #css: ["theme.css"]
-    footer: "Source code for the slides can be found [here](https://github.com/IndrajeetPatil/second-hardest-cs-thing/tree/main/docs)."
-author: "Indrajeet Patil"
-affiliation: "cynkra GmbH"
+    footer: "Original author Indrajeet Patil"
+author: "Rico Derks"
 execute:
   echo: true
 # title-slide-attributes:
@@ -26,49 +25,39 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
+# "There are only two hard things in Computer Science: cache invalidation and naming things."
 
-# "There are only two hard things in Computer Science: cache invalidation and naming things." 
 \- Phil Karlton
-
 
 # 
 
 The following advice on naming applies to all kinds of programming entities (variables, functions, packages, classes, etc.) and is **language-agnostic**.
 
-#
+# 
 
-::: {.callout-important}
-
+::: callout-important
 ## *Principle*: **Names are a form of abstraction**
 
-"[T]he best names are those that focus attention on what is most important about the underlying entity, while omitting details that are less important."
+"\[T\]he best names are those that focus attention on what is most important about the underlying entity, while omitting details that are less important."
 
 \- John Ousterhout
-
 :::
 
 . . .
 
-::: {.callout-tip}
-
-### *Importance*: **Names are at the core of software design** 
+::: callout-tip
+### *Importance*: **Names are at the core of software design**
 
 If you can't find a name that provides the right abstraction for the underlying entity, it is possible that the underlying entity doesn't have a clear design.
-
 :::
 
 . . .
 
-::: {.callout-note}
-
+::: callout-note
 ## *Properties*: **Good names are precise and consistent**
 
 If a name is good, it is difficult to miss out on critical information about the entity or to misinterpret the underlying representation.
-
 :::
-
-# "The beginning of wisdom is to call things by their proper name." 
-\- Confucius
 
 ## Good names are a form of documentation {.smaller}
 
@@ -94,12 +83,8 @@ double fahrenheitToCelsius(double tempFahrenheit)
 
 We don't even need a comment here!
 
-. . .
-
-::: {.callout-tip}
-
+::: callout-tip
 **Good names rarely require readers to read the documentation to understand what they represent.**
-
 :::
 
 ## Generic names should follow conventions {.smaller}
@@ -115,45 +100,37 @@ For example, using `j` for outermost and `i` for nested loop is confusing!
     for (let i = 0; i < arr[j].length; i++) {
 ```
 
-Similarly
-
-- `tmp` shouldn't be used to store objects that are not temporary
-- `retVal` shouldn't be used for objects not returned from function
-- etc.
-
 . . .
 
-::: {.callout-tip}
+Similarly
 
+-   `tmp` shouldn't be used to store objects that are not temporary
+-   `retVal` shouldn't be used for objects not returned from function
+-   etc.
+
+::: callout-tip
 **Don't violate reader assumptions about what generic names represent.**
-
 :::
 
 ## Alternatives to using generic names {.smaller}
 
 If a loop is longer than a few lines, use more meaningful loop variable names than `i`, `j`, `k` because you will quickly lose track of what refers to what.
 
-:::: {.columns}
-
-::: {.column width='50%'}
-
+::: columns
+::: {.column width="50%"}
 ```{r}
 # abstruse
 exam_score[i][j]
 ```
-
 :::
 
-::: {.column width='50%'}
-
+::: {.column width="50%"}
 ```{r}
 # crystal clear
 exam_score[school][student]
 ```
-
 :::
-
-::::
+:::
 
 . . .
 
@@ -161,10 +138,8 @@ exam_score[school][student]
 
 All variables are temporary in some sense. Calling one `tmp` is inviting carelessness.
 
-:::: {.columns}
-
-::: {.column width='50%'}
-
+::: columns
+::: {.column width="50%"}
 ```{r}
 # generic name
 if (right < left) {
@@ -173,11 +148,9 @@ if (right < left) {
   left  <- tmp
 }
 ```
-
 :::
 
-::: {.column width='50%'}
-
+::: {.column width="50%"}
 ```{r}
 # more descriptive
 if (right < left) {
@@ -186,19 +159,13 @@ if (right < left) {
  left      <- old_right
 }
 ```
-
 :::
-
-::::
-
-. . .
+:::
 
 </br>
 
-::: {.callout-tip}
-
+::: callout-tip
 **Even when you *think* you need generic names, you are better off using descriptive names.**
-
 :::
 
 ## Names should be consistent {.smaller}
@@ -223,50 +190,40 @@ For example, these names are inconsistent since the reader can't safely assume t
 
 . . .
 
-::: {.callout-tip}
-
+::: callout-tip
 **Allow users to make safe assumptions about what the names represent across different scopes/contexts.**
-
 :::
 
-## {.smaller}
+##  {.smaller}
 
 ### Unnecessary details should be removed...
 
-:::: {.columns}
-
-::: {.column width='50%'}
-
+::: columns
+::: {.column width="50%"}
 ```{r}
 # okay 
 convert_to_string()
 fileObject
 strName # Hungarian notation
 ```
-
 :::
 
-::: {.column width='50%'}
-
+::: {.column width="50%"}
 ```{r}
 # better 
 to_string()
 file
 name
 ```
-
 :::
-
-::::
+:::
 
 </br>
 
 ### **but** important details should be kept!
 
-:::: {.columns}
-
-::: {.column width='50%'}
-
+::: columns
+::: {.column width="50%"}
 ```{r}
 # okay 
 child_height
@@ -274,11 +231,9 @@ password
 id
 address
 ```
-
 :::
 
-::: {.column width='50%'}
-
+::: {.column width="50%"}
 ```{r}
 # better 
 child_height_cm
@@ -286,15 +241,11 @@ plaintext_password
 hex_id
 ip_address
 ```
-
+:::
 :::
 
-::::
-
-::: {.callout-tip}
-
+::: callout-tip
 **If some information is critical to know, it should be part of the name.**
-
 :::
 
 ## Names should be precise but not *too* long {.smaller}
@@ -322,10 +273,8 @@ days_since_last_accident_floor_4_lab_23
 
 . . .
 
-::: {.callout-tip}
-
+::: callout-tip
 **Don't go too far with making names precise.**
-
 :::
 
 ## Names should be difficult to misinterpret {.smaller}
@@ -348,8 +297,6 @@ How I interpret: *"`x` and `y` refer to pixel positions for a character."*
 
 In reality: *"`x` and `y` refer to line of text and character position in that line."*
 
-. . .
-
 You can avoid such misinterpretation with better names:
 
 ```{c}
@@ -358,10 +305,8 @@ std::tuple<int, int> getCharPosition(int lineIndex, int charIndex)
 
 . . .
 
-::: {.callout-tip}
-
-**Precise and unambiguous names leave little room for misconstrual.**
-
+::: callout-tip
+**Precise and unambiguous names leave little room for misinterpretation.**
 :::
 
 ## Names should be easily searchable {.smaller}
@@ -386,10 +331,8 @@ Instead, if `scatter_plot` identifier is used, both search and replace operation
 
 . . .
 
-::: {.callout-tip}
-
+::: callout-tip
 **Choose names that can be searched and, if the need arises, replaced.**
-
 :::
 
 ## Names should honor the culture {.smaller}
@@ -398,12 +341,10 @@ The names should respect the conventions adopted in a given project, organizatio
 
 . . .
 
-For example, C++ convention is to use PascalCase for class names and lowerCamel case for variables. 
+For example, C++ convention is to use PascalCase for class names and lowerCamel case for variables.
 
-:::: {.columns}
-
-::: {.column width='50%'}
-
+::: columns
+::: {.column width="50%"}
 ```{c}
 // non-conventional
 class playerEntity
@@ -414,8 +355,7 @@ public:
 ```
 :::
 
-::: {.column width='50%'}
-
+::: {.column width="50%"}
 ```{c}
 // conventional
 class PlayerEntity
@@ -424,27 +364,19 @@ public:
     std::string hairColor;
 };
 ```
-
+:::
 :::
 
-::::
-
-. . .
-
-::: {.callout-tip}
-
+::: callout-tip
 **Don't break conventions unless other guidelines require overriding them for consistency.**
-
 :::
 
 ## Name Booleans with extra care {.smaller}
 
 Names for Boolean variables or functions should make clear what true and false means. This can be done using prefixes (**is**, **has**, **can**, etc.).
 
-:::: {.columns}
-
-::: {.column width='50%'}
-
+::: columns
+::: {.column width="50%"}
 ```{r}
 # not great
 if (child) {
@@ -453,11 +385,9 @@ if (child) {
   }
 }
 ```
-
 :::
 
-::: {.column width='50%'}
-
+::: {.column width="50%"}
 ```{r}
 # better
 if (isChild) {
@@ -466,43 +396,31 @@ if (isChild) {
   }
 }
 ```
-
 :::
-
-::::
+:::
 
 . . .
 
 Use positive terms for Booleans since they are easier to process.
 
-:::: {.columns}
-
-::: {.column width='50%'}
-
+::: columns
+::: {.column width="50%"}
 ```{r}
 # double negation - difficult
 is_firewall_disabled = FALSE
 ```
-
 :::
 
-::: {.column width='50%'}
-
+::: {.column width="50%"}
 ```{r}
 # better
 is_firewall_enabled = TRUE
 ```
-
+:::
 :::
 
-::::
-
-. . .
-
-::: {.callout-tip}
-
+::: callout-tip
 **Give Boolean variable names that convey what true or false implies.**
-
 :::
 
 ## Naming conventions as extra information {.smaller}
@@ -521,19 +439,15 @@ To resist software entropy, not only should you name entities properly, but you 
 
 . . .
 
-For example, let's say your class has `$getMeans()` method. 
+For example, let's say your class has `$getMeans()` method.
 
-- In its initial implementation, it used to return *precomputed* mean values. 
-- In its current implementation, it *computes* the mean values on the fly. 
+-   In its initial implementation, it used to return *precomputed* mean values.
+-   In its current implementation, it *computes* the mean values on the fly.
 
 Therefore, it is misleading to continue to call it a getter method, and it should be renamed to (e.g.) `$computeMeans()`.
 
-. . .
-
-::: {.callout-tip}
-
+::: callout-tip
 **Keep an eye out for API changes that make names misleading.**
-
 :::
 
 ## Names should be pronounceable {.smaller}
@@ -578,10 +492,8 @@ Both of these methods should either be named `$retrieve_expenditure()` or `$fetc
 
 . . .
 
-::: {.callout-tip}
-
+::: callout-tip
 **Consistency of naming conventions should be respected at the code base level, not just for short scopes.**
-
 :::
 
 # A sundry of don'ts
@@ -590,200 +502,57 @@ You won't have to remember any of the following rules if you adopt a single prin
 
 "Names should be readable for the *reader*, and not *writer*, of code."
 
-## {.smaller}
+##  {.smaller}
 
-- **Don't use pop-culture references in names.** Not everyone can be expected to be familiar with them. E.g. `female_birdsong_recording` is a better variable name than `thats_what_she_said`.
-
-. . .
-
-- **Don't use slang.** You can't assume current or future developers to be familiar with them. E.g. `exit()` is better than `hit_the_road()`.
+-   **Don't use pop-culture references in names.** Not everyone can be expected to be familiar with them. E.g. `female_birdsong_recording` is a better variable name than `thats_what_she_said`.
 
 . . .
 
-- **Avoid unintended meanings.** Do your due diligence to check dictionaries (especially [Urban dictionary](https://www.urbandictionary.com/)!) if the word has unintended meaning. E.g. `cumulative_sum()` is a better function name than [`cumsum()`](https://rdrr.io/r/base/cumsum.html).
+-   **Don't use slang.** You can't assume current or future developers to be familiar with them. E.g. `exit()` is better than `hit_the_road()`.
 
 . . .
 
-- **Avoid imprecise opposites**, since they can be confusing. E.g. parameter combination `begin`/`last` is worse than either `begin`/`end` or `first`/`last`.
-
-## {.smaller}
-
-- **Don't use inconsistent abbreviations.** E.g. instead of using `numColumns` (*number* of columns) in one function and `noRows` (*number* of rows) in another, choose one abbreviation as a prefix and use it consistently.
+-   **Avoid unintended meanings.** Do your due diligence to check dictionaries (especially [Urban dictionary](https://www.urbandictionary.com/)!) if the word has unintended meaning. E.g. `cumulative_sum()` is a better function name than [`cumsum()`](https://rdrr.io/r/base/cumsum.html).
 
 . . .
 
-- **Don't use hard-to-distinguish character pairs in names** (e.g., `l` and `I`, `O` and `0`, etc.). With certain fonts, it can be hard to distinguish `firstl` from `firstI`.
+-   **Avoid imprecise opposites**, since they can be confusing. E.g. parameter combination `begin`/`last` is worse than either `begin`/`end` or `first`/`last`.
+
+##  {.smaller}
+
+-   **Don't use inconsistent abbreviations.** E.g. instead of using `numColumns` (*number* of columns) in one function and `noRows` (*number* of rows) in another, choose one abbreviation as a prefix and use it consistently.
 
 . . .
 
-- **Don't misspell to save a few characters.** Remembering spelling is difficult, and remembering *correct misspelling* even more so. E.g. don't use `hilite` instead of `highlight`. Benefit is not worth the cost here.
+-   **Don't use hard-to-distinguish character pairs in names** (e.g., `l` and `I`, `O` and `0`, etc.). With certain fonts, it can be hard to distinguish `firstl` from `firstI`.
 
 . . .
 
-- **Don't use commonly misspelled words in English.** Using such names for variables can, at minimum, slow you down, or, at worst, increase the possibility of making an error. E.g. is it `accumulate`, `accummulate`, `acumulate`, or `acummulate`?!
-
-## {.smaller}
-
-- **Don't use misleading abbreviations.** E.g., in R, `na.rm` parameter removes (`rm`) missing values (`NA`). Using it to mean "remove (`rm`) non-authorized (`NA`) entries" for a function parameter will be misleading.
+-   **Don't misspell to save a few characters.** Remembering spelling is difficult, and remembering *correct misspelling* even more so. E.g. don't use `hilite` instead of `highlight`. Benefit is not worth the cost here.
 
 . . .
 
-- **Don't allow multiple English standards.** E.g. using both American and British English standards would've you constantly guessing if the variable is named (e.g.) `centre` or `center`. Adopt one standard and stick to it.
+-   **Don't use commonly misspelled words in English.** Using such names for variables can, at minimum, slow you down, or, at worst, increase the possibility of making an error. E.g. is it `accumulate`, `accummulate`, `acumulate`, or `acummulate`?!
+
+##  {.smaller}
+
+-   **Don't use misleading abbreviations.** E.g., in R, `na.rm` parameter removes (`rm`) missing values (`NA`). Using it to mean "remove (`rm`) non-authorized (`NA`) entries" for a function parameter will be misleading.
 
 . . .
 
-- **Don't use similar names for entities with different meanings.** E.g. `patientRecs` and `patientReps` are easily confused because they are so similar. There should be at least two-letter difference: `patientRecords` and `patientReports`.
-
-# Case studies
-
-Looking at names in the wild that violate presented guidelines.
-
-This is **not** to be taken as criticisms but as real-life learning opportunities to drive home the importance of these guidelines.
-
-## Violation: Breaking (domain) conventions {.smaller}
-
-R is a programming language for statistical computing, and function names can be expected to respect the domain conventions.
+-   **Don't allow multiple English standards.** E.g. using both American and British English standards would've you constantly guessing if the variable is named (e.g.) `centre` or `center`. Adopt one standard and stick to it.
 
 . . .
 
-Statistical distributions can be characterized by centrality measures, like mean, median, mode, etc., and R has functions with names that wouldn't surprise you, **except one**:
-
-```{r}
-x <- c(1, 2, 3, 4)
-mean(x)   # expected output
-median(x) # expected output
-mode(x)   # unexpected output! 
-```
-
-The `mode()` function actually returns the storage mode of an R object!
-
-. . .
-
-This function could have been named (e.g.) `storageMode()`, which is more precise and doesn't break domain-specific expectations.
-
-## Violation: Generic name {.smaller}
-
-The parameter `N` in `std::array` [definition]((https://en.cppreference.com/w/cpp/container/array) is too generic.
-
-```{c}
-template<
-    class T,
-    std::size_t N 
-> struct array;
-```
-
-. . .
-
-`size` is a bit better but still leaves room for misunderstanding: 
-> "Does it mean length or memory bytes?"
-
-. . .
-
-Here is an alternative parameter name:
-
-```{c}
-template<
-    class T,
-    std::size_t numberOfElements
-> struct array;
-```
-
-`numberOfElements` is more precise and unmistakable.
-
-## Violation: Inconsistency in naming {.smaller}
-
-*ggplot2* is a [plotting framework](https://ggplot2.tidyverse.org/) in R, and supports both **British** and **American** English spelling standards. But does it do so *consistently*?
-
-. . .
-
-:::: {.columns}
-
-::: {.column width='50%'}
-
-**Function names**
-
-```{r}
-# works
-guide_colorbar(...)
-
-# this works as well!
-guide_colourbar(...)
-```
-
-:::
-
-::: {.column width='50%'}
-
-**Function parameters**
-
-```{r}
-# works
-aes(color = ...)
-
-# this works as well!
-aes(colour = ...)
-```
-
-:::
-
-::::
-
-. . .
-
-A user now believes that both spelling standards for function names *and* parameters are supported. And, since they prefer American spellings, they do this:
-
-```{r}
-guide_colorbar(ticks.color = "black")
-```
-
-. . .
-
-**That won't work!** Both functions support **only** the British spelling of parameters:
-
-```{r}
-guide_colourbar(ticks.colour = "black")
-guide_colorbar(ticks.colour = "black")
-```
-
-This is **inconsistent** and **violates user's mental model** about function and parameter naming schema.
-
-## Violation: Room for misunderstanding {.smaller}
-
-In Python, [`filter()`](https://www.w3schools.com/python/ref_func_filter.asp) can be used to apply a function to an iterable.
-
-```{python}
-list(filter(lambda x: x > 0, [-1, 1]))
-```
-
-. . .
-
-But `filter` is an ambiguous word:
-
-- It could mean to pick out elements that pass a condition (what *remains after filtering*), or
-- it could mean to pick out elements that need to be removed (what *is filtered*). 
-
-If you've never used this function before, could you predict if it returns `1` or `-1`?
-
-. . .
-
-It returns `1`, so the intent is to pick out the elements that pass the condition. </br>
-In this case, **`keep()`** would've be a better name.
-
-Had the intent been to find elements to remove, **`discard()`** would've be a better name.
-
-# etc.
-
-It is easy to find such violations. 
-
-But, whenever you encounter one, make it a personal exercise to come up with a better name.
+-   **Don't use similar names for entities with different meanings.** E.g. `patientRecs` and `patientReps` are easily confused because they are so similar. There should be at least two-letter difference: `patientRecords` and `patientReports`.
 
 # Challenges
 
-Initially, you may struggle to find good names and settle down for the first serviceable name that pops into your head. 
+Initially, you may struggle to find good names and settle down for the first serviceable name that pops into your head.
 
 **Resist the urge!**
 
-## Worth the struggle 
+## Worth the struggle
 
 Adopt an investment mindset and remember that the little extra time invested in finding good names early on will pay dividends in the long run by reducing accumulation of complexity in the system.
 
@@ -795,69 +564,21 @@ And, after a while, you won't even need to think long and hard to come up with a
 
 *"What's in a name?"* Well, everything!
 
-## {.smaller}
-
-- Intent-revealing names make the **code easier to read**.
-
-. . .
-
-- Trying to find good names forces you to detach from the problem-solving mindset and to **focus on the bigger picture** that motivates this change. This is critical for thoughtful software design.
-
-. . .
-
-- Searching for precise names requires clarity, and seeking such clarity **improves your own understanding** of the code.
-
-. . .
-
-- Naming precisely and consistently **reduces ambiguities and misunderstandings**, which in turn reduces the possibility of bugs.
-
-. . .
-
-- Good names **reduce the need for documentation**.
-
-. . .
-
-- Consistent naming **reduces cognitive overload** for the developers and make the code more readable and maintainable.
-
-. . .
-
-- etc.
-
-# Further Reading {.smaller}
-
-For a more detailed discussion about how to name things, see the following references.
-
 ## References {.smaller}
 
-- McConnell, S. (2004). *Code Complete*. Microsoft Press. (**pp. 259-290**)
+-   McConnell, S. (2004). *Code Complete*. Microsoft Press. (**pp. 259-290**)
 
-- Boswell, D., & Foucher, T. (2011). *The Art of Readable Code*. O'Reilly Media, Inc. (**pp. 7-31**)
+-   Boswell, D., & Foucher, T. (2011). *The Art of Readable Code*. O'Reilly Media, Inc. (**pp. 7-31**)
 
-- Ousterhout, J. K. (2018). *A Philosophy of Software Design*. Palo Alto: Yaknyam Press. (**pp. 121-129**)
+-   Ousterhout, J. K. (2018). *A Philosophy of Software Design*. Palo Alto: Yaknyam Press. (**pp. 121-129**)
 
-- Martin, R. C. (2009). *Clean Code*. Pearson Education.(**pp. 17-30**)
+-   Martin, R. C. (2009). *Clean Code*. Pearson Education.(**pp. 17-30**)
 
-- Thomas, D., & Hunt, A. (2019). *The Pragmatic Programmer*. Addison-Wesley Professional. (**pp. 238-242**)
+-   Thomas, D., & Hunt, A. (2019). *The Pragmatic Programmer*. Addison-Wesley Professional. (**pp. 238-242**)
 
-- For a good example of organizational naming guidelines, see [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html#Naming).
+-   For a good example of organizational naming guidelines, see [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html#Naming).
 
-# Find me at...
 
-{{< fa brands twitter >}} [Twitter](http://twitter.com/patilindrajeets)
-
-{{< fa brands linkedin >}} [LikedIn](https://www.linkedin.com/in/indrajeet-patil-397865174/)
-
-{{< fa brands github >}} [GitHub](http://github.com/IndrajeetPatil)
-
-{{< fa solid link >}} [Website](https://sites.google.com/site/indrajeetspatilmorality/)
-
-{{< fa solid envelope >}} [E-mail](mailto:patilindrajeet.science@gmail.com)
-
-# Thank You 
+# Thank You
 
 And Happy Naming! 😊
-
-```{r, echo=FALSE, eval=TRUE}
-knitr::include_graphics("images/cat.png")
-```
-

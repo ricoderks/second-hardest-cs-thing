@@ -1,3 +1,8 @@
+# Introduction
+
+The original version can be found [here](https://github.com/IndrajeetPatil/second-hardest-cs-thing). I 
+had to reduce it a bit because of time.
+
 # Dealing with the Second Hardest Thing in Computer Science
 
 This presentation summarizes my understanding of best practices in naming things for software development.
