@@ -6,6 +6,7 @@ format:
     theme: simple
     slide-number: true
     preview-links: auto
+    self-contained: true
     #css: ["theme.css"]
     footer: "Original author Indrajeet Patil"
 author: "Rico Derks"
